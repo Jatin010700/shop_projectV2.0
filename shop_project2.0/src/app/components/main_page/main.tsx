@@ -20,20 +20,18 @@ export default function Header() {
             <h2 className="text-xl font-bold">
               HP Omen laptop /
               <span className="text-RED text-2xl">
-                
                 $1,500
                 <i className="bi bi-tag-fill ml-1"></i>
               </span>
-
               <div className="md:hidden mt-8 md:mt-0 md:relative flex justify-center md:justify-end">
-          <Image
-            src="/assets/laptop1.png"
-            alt=""
-            width={100}
-            height={100}
-            className="w-full md:w-3/4 h-auto rounded-lg"
-          />
-        </div>
+                <Image
+                  src="/assets/laptop1.png"
+                  alt=""
+                  width={100}
+                  height={100}
+                  className="w-full md:w-3/4 h-auto rounded-lg"
+                />
+              </div>
             </h2>
             <p className="py-2 text-justify">
               17.3-inch 1920×1080 IPS screen in a 6.3lb package. This has the
@@ -45,7 +43,7 @@ export default function Header() {
           </div>
 
           <button
-            className="shadow-xl border-2 border-RED p-2 rounded-lg font-bold hover:bg-RED
+            className="shadow-xl border-2 border-RED p-2 rounded-full font-bold hover:bg-RED
            scale-105 duration-150 mt-4 md:mt-0"
           >
             Go to Store <i className="bi bi-arrow-right-circle-fill"></i>
@@ -64,13 +62,12 @@ export default function Header() {
       </main>
 
       <div className="bg-dark text-white text-center flex flex-col justify-center items-center py-3 h-[120px]">
-      <p className="text-lg md:text-xl">Scroll Down ...</p>
-      <div className="w-1/2 md:w-3/4 mx-auto mt-2">
-      <i className="bi bi-arrow-down-circle-fill text-RED text-2xl animate-bounce"></i>
+        <p className="text-lg md:text-xl font-bold">Scroll Down</p>
+        <div className="w-1/2 md:w-3/4 mx-auto mt-2">
+          <i className="bi bi-arrow-down-circle-fill text-RED text-2xl animate-bounce"></i>
+        </div>
       </div>
-      
-    </div>
-<div className="bg-RED h-1"></div>
+      <div className="bg-RED h-1"></div>
     </>
   );
 }

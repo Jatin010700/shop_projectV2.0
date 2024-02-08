@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Keyboard",
+        "price": 100,
+        "image": "https://res.cloudinary.com/dttarxcrw/image/upload/v1707388274/shopProjectV2.0/waytvvqy1gns1j3f92ng.jpg",
+        "quantity": 1
+    },
+    {
+        "name": "mouse",
+        "price": 150,
+        "image": "https://res.cloudinary.com/dttarxcrw/image/upload/v1707388275/shopProjectV2.0/jfpemhhg7jpctjjyionh.jpg",
+        "quantity": 1
+    },
+    {
+        "name": "Keyboard",
+        "price": 100,
+        "image": "https://res.cloudinary.com/dttarxcrw/image/upload/v1707388274/shopProjectV2.0/waytvvqy1gns1j3f92ng.jpg",
+        "quantity": 1
+    },
+    {
+        "name": "mouse",
+        "price": 150,
+        "image": "https://res.cloudinary.com/dttarxcrw/image/upload/v1707388275/shopProjectV2.0/jfpemhhg7jpctjjyionh.jpg",
+        "quantity": 1
+    },
+    {
+        "name": "Keyboard",
+        "price": 100,
+        "image": "https://res.cloudinary.com/dttarxcrw/image/upload/v1707388274/shopProjectV2.0/waytvvqy1gns1j3f92ng.jpg",
+        "quantity": 1
+    },
+    {
+        "name": "mouse",
+        "price": 150,
+        "image": "https://res.cloudinary.com/dttarxcrw/image/upload/v1707388275/shopProjectV2.0/jfpemhhg7jpctjjyionh.jpg",
+        "quantity": 1
+    },
+    {
+        "name": "Keyboard",
+        "price": 100,
+        "image": "https://res.cloudinary.com/dttarxcrw/image/upload/v1707388274/shopProjectV2.0/waytvvqy1gns1j3f92ng.jpg",
+        "quantity": 1
+    },
+    {
+        "name": "mouse",
+        "price": 150,
+        "image": "https://res.cloudinary.com/dttarxcrw/image/upload/v1707388275/shopProjectV2.0/jfpemhhg7jpctjjyionh.jpg",
+        "quantity": 1
+    }
+]
