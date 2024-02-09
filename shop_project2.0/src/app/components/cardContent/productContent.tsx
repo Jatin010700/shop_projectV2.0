@@ -18,7 +18,7 @@ const Product: React.FC = () => {
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>VIew More</Button>
+      <Button onClick={() => setOpenModal(true)} className='bg-dark rounded-full'>VIew More</Button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Terms of Service</Modal.Header>
         <Modal.Body>

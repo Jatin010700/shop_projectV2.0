@@ -3,8 +3,9 @@
 import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import Product from "./productContent";
 
-interface ProductModel {
+interface MongooseModel {
   _id: string;
   name: string;
   price: number;
@@ -12,17 +13,16 @@ interface ProductModel {
   quantity: number;
 }
 type CardProps = {
-  product: ProductModel[];
-}
-const Card: React.FC<CardProps> = ({product}) => {
-  const [products, setProducts] = useState<ProductModel[]>([]);
-
+  product: MongooseModel[];
+};
+const Card: React.FC<CardProps> = () => {
+  const [products, setProducts] = useState<MongooseModel[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get("/api/getMongoDBContent");
         setProducts(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         console.log("Data fetch ;D");
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -33,40 +33,36 @@ const Card: React.FC<CardProps> = ({product}) => {
   }, []);
   return (
     <>
-      <section className="bg-white p-4">
-        <h1 className="text-4xl text-dark pl-2 pb-4 font-bold">
+      <section className="bg-white px-4">
+        <div className="w-full flex justify-center items-center pb-4">
+          <h1 className="text-4xl text-center w-1/2 bg-RED p-4
+           text-dark font-bold rounded-b-full">
           New In Store
-          {/* <FontAwesomeIcon icon={faCaretRight} className="text-RED ml-2" /> */}
         </h1>
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
-          lg:grid-cols-4 xl:grid-cols-4 gap-4 p-2"
-        >
-          {product.map((item:any) => (
-            <li key={item._id}>
-              <h2>{item.name}</h2>
-              <p>Price: ${item.price}</p>
-              <Image
-                src={item.image}
-                alt={item.name}
-                width={100}
-                height={100}
-              />
-              <p>Quantity: {item.quantity}</p>
-            </li>
-          ))}
         </div>
-        <h1 className="text-4xl text-dark pl-2 py-4 font-bold">
-          Discount
-          {/* <FontAwesomeIcon icon={faCaretRight} className="text-RED ml-2" /> */}
-        </h1>
+        
         <div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
           lg:grid-cols-4 xl:grid-cols-4 gap-4 p-2"
         >
-          {/* {data2.map((product) => (
-            <Product product={product} />
-          ))} */}
+          {products.slice(0, 8).map((item: any) => (
+            <>
+              <li key={item._id} className="flex flex-col">
+                <Image
+                  src={item.image}
+                  alt=""
+                  width={100}
+                  height={100}
+                  className="w-full rounded-3xl"
+                />
+                <div className="flex flex-col items-center gap-1">
+                  <h2 className=" text-dark text-xl font-bold">{item.name}</h2>
+                  <p className=" text-dark">Price: ${item.price}</p>
+                </div>
+                <Product />
+              </li>
+            </>
+          ))}
         </div>
       </section>
     </>

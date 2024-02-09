@@ -1,14 +1,16 @@
 // mongoose.ts
 import mongoose, { Document, Schema } from 'mongoose';
 
-interface ShopContent extends Document {
+interface MongooseModel extends Document {
+  _id: string;
   name: string;
   price: number;
   image: string;
   quantity: number;
 }
 
-const ProductSchema = new Schema<ShopContent>({
+const ProductSchema = new Schema<MongooseModel>({
+  _id: { type: String, required: true },
   name: { type: String, required: true },
   price: { type: Number, required: true },
   image: { type: String, required: true },
@@ -16,7 +18,7 @@ const ProductSchema = new Schema<ShopContent>({
 });
 
 const MongooseProductModel =
-  mongoose.models.shopProjectV2 ||
-  mongoose.model<ShopContent>('shopProjectV2', ProductSchema);
-
+  mongoose.models.shopContent ||
+  mongoose.model<MongooseModel>('shopContent', ProductSchema, 'shopContent');
+// console.log("mongoose TS =",MongooseProductModel)
 export default MongooseProductModel;

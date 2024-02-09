@@ -1,20 +1,27 @@
 // mongoDB.ts
 import mongoose from 'mongoose';
 
+let isConnected = false;
+
 const ConnectMongoDB = async (): Promise<void> => {
+  mongoose.set("strictQuery", true);
+  if (isConnected) {
+    console.log("MongoDB connected already");
+    return;
+  }
+
   try {
     const mongoEnv: string = process.env.MONGO_DB_URL || '';
-    console.log('MongoDB Connection String:', mongoEnv);
+    // console.log('MongoDB Connection String:', mongoEnv);
 
-    if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(mongoEnv, {
+    await mongoose.connect(mongoEnv, {
+        dbName: "shopProjectV2",
         useNewUrlParser: true,
         useUnifiedTopology: true,
       } as mongoose.ConnectOptions);
-      console.log('Connected to MongoDB');
-    }
+      isConnected = true
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
+    console.error('Failed to connect to MongoDB:', error);
     throw error;
   }
 };

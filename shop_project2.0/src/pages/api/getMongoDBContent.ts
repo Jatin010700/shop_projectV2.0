@@ -11,8 +11,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log('Processing GET request');
       // Disable caching
       res.setHeader('Cache-Control', 'no-store');
+      
       // Fetch products from the database using your Mongoose model
       const products = await MongooseProductModel.find();
+      // console.log("server product", products)
+      // console.log(MongooseProductModel)
       res.status(200).json(products);
     } else {
       res.status(405).json({ error: 'Method Not Allowed' });
