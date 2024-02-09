@@ -1,48 +1,41 @@
+"use client";
 
-'use client';
+import { Button, Modal } from "flowbite-react";
+import Image from "next/image";
+import { useState } from "react";
 
-import { Button, Modal } from 'flowbite-react';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-
-interface MongooseProductModel {
-  _id: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
-const Product: React.FC = () => {
+const Product = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [products, setProducts] = useState<MongooseProductModel[]>([]);
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)} className='bg-dark rounded-full'>VIew More</Button>
+      <Button
+        onClick={() => setOpenModal(true)}
+        className="bg-dark rounded-full font-bold"
+      >
+        View More
+      </Button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>Terms of Service</Modal.Header>
-        <Modal.Body>
-          <div className="space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
-              companies around the world are updating their terms of service agreements to comply.
-            </p>
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
-              to ensure a common set of data rights in the European Union. It requires organizations to notify users as
-              soon as possible of high-risk data breaches that could personally affect them.
-            </p>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setOpenModal(false)}>I accept</Button>
-          <Button color="gray" onClick={() => setOpenModal(false)}>
-            Decline
-          </Button>
-        </Modal.Footer>
+        
+        <div className="text-dark flex justify-between px-4 pt-2">
+          <h1 className="text-2xl font-bold uppercase">hello</h1>
+          <button onClick={() => setOpenModal(false)}>
+            <i
+              className="bi bi-x-circle-fill text-2xl hover:text-RED
+           scale-105 duration-150"
+            ></i>
+          </button>
+        </div>
+
+        <div>
+          <Image src="" alt="" width={100} height={100}/>
+
+          <p></p>
+        </div>
+
       </Modal>
     </>
   );
-}
+};
 
-export default Product
+export default Product;

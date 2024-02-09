@@ -189,6 +189,7 @@ export default function Review() {
           </div>
         </div>
       </div>
+      <div className="bg-RED h-1"></div>
     </>
   );
 }

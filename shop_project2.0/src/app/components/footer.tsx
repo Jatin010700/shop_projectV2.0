@@ -1,14 +1,31 @@
+"use client"
+import { useEffect, useState } from "react";
 import { Bar } from "./extra/bar";
 
 export default function Footer() {
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+
+  //Automatically update year
+  useEffect(() => {
+    const updateYear = () => {
+      setCurrentYear(new Date().getFullYear());
+    };
+
+    updateYear();
+
+    const interValid = setInterval(updateYear, 1000);
+
+    return () => clearInterval(interValid);
+  }, []);
+
   return (
     <>
-      <footer className="relative bg-white pt-8 pb-6">
+      <footer className="relative bg-white pt-8 pb-4">
         <div className="container flex-wrap mx-auto px-4">
           <div className="flex flex-wrap md:flex-row flex-col md:text-left lg:text-left">
             <div className="w-full md:w-6/12 px-4">
               <h4 className="text-4xl font-bold text-RED">
-                Let&aposs keep in touch!
+                Let&apos;s keep in touch!
               </h4>
               <h5 className="text-lg mt-0 mb-2 text-dark">
                 Find us on any of these platforms, we respond 1-2 business days.
@@ -50,13 +67,13 @@ export default function Footer() {
             <div className="w-full md:w-6/12 px-4 mt-6 md:mt-0">
               <div className="flex flex-wrap md:flex-row flex-col items-top mb-6">
                 <div className="w-full md:w-4/12 px-4 md:ml-auto">
-                  <span className="block uppercase text-RED text-sm font-bold mb-2">
+                  <span className="block uppercase text-RED text-lg font-bold mb-2">
                     Useful Links
                   </span>
                   <ul className="list-unstyled text-dark">
                     <li>
                       <a
-                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:-translate-z-1 hover:scale-125"
+                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:scale-110"
                         href=""
                       >
                         About Us
@@ -64,7 +81,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <a
-                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:-translate-z-1 hover:scale-125"
+                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:scale-110"
                         href=""
                       >
                         Blog
@@ -72,7 +89,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <a
-                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:-translate-z-1 hover:scale-125"
+                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:scale-110"
                         href=""
                       >
                         Github
@@ -80,7 +97,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <a
-                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:-translate-z-1 hover:scale-125"
+                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:scale-110"
                         href=""
                       >
                         Free Products
@@ -88,14 +105,14 @@ export default function Footer() {
                     </li>
                   </ul>
                 </div>
-                <div className="w-full md:w-4/12 px-4">
-                  <span className="block uppercase text-RED font-bold text-sm mb-2">
+                <div className="w-full md:w-5/12 px-4">
+                  <span className="block uppercase text-RED font-bold text-lg mb-2">
                     Other Resources
                   </span>
                   <ul className="list-unstyled text-dark">
                     <li>
                       <a
-                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:-translate-z-1 hover:scale-125"
+                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:scale-110"
                         href=""
                       >
                         MIT License
@@ -103,7 +120,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <a
-                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:-translate-z-1 hover:scale-125"
+                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:scale-110"
                         href=""
                       >
                         Terms &amp; Conditions
@@ -111,7 +128,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <a
-                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:-translate-z-1 hover:scale-125"
+                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:scale-110"
                         href=""
                       >
                         Privacy Policy
@@ -119,7 +136,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <a
-                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:-translate-z-1 hover:scale-125"
+                        className="hover:text-RED block pb-2 text-sm transition ease-in-out hover:scale-110"
                         href=""
                       >
                         Contact Us
@@ -135,8 +152,8 @@ export default function Footer() {
             <div className="w-full px-4 mx-auto text-center">
               <Bar />
               <div>
-                Copyright © <span id="get-current-year">2023</span>
-                <p className="font-bold text-RED">Made by jatin Oomajee</p>
+                <p className="font-bold text-dark">Made by Jatin Oomajee 
+                <span className="text-RED"> © {currentYear}</span></p>
               </div>
             </div>
           </div>

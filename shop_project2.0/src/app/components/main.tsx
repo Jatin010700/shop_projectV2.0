@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { AnimatedText } from "../extra/animatedText";
+import { AnimatedText } from "./extra/animatedText";
 
 export default function Header() {
   return (
