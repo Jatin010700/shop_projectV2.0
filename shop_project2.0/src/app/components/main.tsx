@@ -43,8 +43,7 @@ export default function Header() {
           </div>
 
           <button
-            className="shadow-xl border-2 border-RED p-2 rounded-full font-bold hover:bg-RED
-           scale-105 duration-150 mt-4 md:mt-0"
+            className="shadow-xl p-2 rounded-full font-bold bg-RED hover:scale-110 duration-150 mt-4 md:mt-0"
           >
             Go to Store <i className="bi bi-arrow-right-circle-fill"></i>
           </button>
@@ -61,7 +60,7 @@ export default function Header() {
         </div>
       </main>
 
-      <div className="bg-dark text-white text-center flex flex-col justify-center items-center py-3 h-[120px]">
+      <div className="bg-dark text-white text-center flex flex-col justify-center items-center h-[130px]">
         <p className="text-lg md:text-xl font-bold">Scroll Down</p>
         <div className="w-1/2 md:w-3/4 mx-auto mt-2">
           <i className="bi bi-arrow-down-circle-fill text-RED text-2xl animate-bounce"></i>

@@ -14,11 +14,14 @@ const ConnectMongoDB = async (): Promise<void> => {
     const mongoEnv: string = process.env.MONGO_DB_URL || '';
     // console.log('MongoDB Connection String:', mongoEnv);
 
-    await mongoose.connect(mongoEnv, {
+    // await mongoose.connect(mongoEnv, {
+    //     dbName: "shopProjectV2",
+    //     useNewUrlParser: true,
+    //     useUnifiedTopology: true,
+    //   } as mongoose.ConnectOptions);
+      await mongoose.connect(mongoEnv, {
         dbName: "shopProjectV2",
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      } as mongoose.ConnectOptions);
+      });
       isConnected = true
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error);

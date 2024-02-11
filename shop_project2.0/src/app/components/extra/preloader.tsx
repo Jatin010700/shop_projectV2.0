@@ -4,12 +4,15 @@ if (typeof window !== 'undefined') {
   jellyTriangle.register();
 }
 type preloaderProps = {
-  className: string
+  className: string;
+  preloaderColor: string;
+  preloaderSize: string
 }
-export default function Preloader({className}:preloaderProps) {
+
+export default function Preloader({className, preloaderColor, preloaderSize}:preloaderProps) {
   return (
     <div className={className}>
-      <l-jelly-triangle size="30" speed="1.75" color="#ff3333"></l-jelly-triangle>
+      <l-jelly-triangle size={preloaderSize} speed="1.75" color={preloaderColor}></l-jelly-triangle>
     </div>
   );
 }

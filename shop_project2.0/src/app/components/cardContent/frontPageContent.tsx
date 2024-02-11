@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = () => {
         setIsLoading(true);
         const res = await axios.get("/api/getMongoDBContent");
         setProducts(res.data);
-        console.log("Data fetch ;D");
+        // console.log("Data fetch ;D");
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -46,7 +46,7 @@ const Card: React.FC<CardProps> = () => {
     <>
       <section className="bg-white px-4 pb-8">
         <div className="w-full flex justify-center items-center pb-4">
-          <h1 className="text-4xl text-center w-1/2 bg-RED p-4 text-dark font-bold rounded-b-full">
+          <h1 className="text-4xl text-center w-full md:w-1/2 bg-RED p-4 text-dark font-bold rounded-b-full">
             New In Store
           </h1>
         </div>
@@ -58,9 +58,13 @@ const Card: React.FC<CardProps> = () => {
           {products.slice(0, 8).map((item: MongooseModel) => (
             <li key={item._id} className="flex flex-col">
               {isLoading ? (
-                <Preloader key={`preloader-${item._id}`} className="flex justify-center" />
+                <Preloader key={`preloader-${item._id}`} 
+                className="flex justify-center"
+                preloaderSize="30" 
+                preloaderColor="#ff3333"/>
               ) : (
                 <>
+                <div className="relative">
                   <Image
                     src={item.image}
                     alt=""
@@ -68,13 +72,22 @@ const Card: React.FC<CardProps> = () => {
                     height={100}
                     className="w-full rounded-3xl"
                   />
+                  {/* Wishlist Section */}
+                  {/* <button> */}
+                    <i className="bi bi-suit-heart-fill text-2xl absolute top-5 right-5"></i>
+                  {/* </button> */}
+                    
+                </div>
+                  
                   <div className="flex flex-col items-center gap-1 py-1">
                     <h2 className="text-dark text-xl font-bold uppercase">
                       {item.name}
                     </h2>
-                    <p className="text-dark">Price: ${item.price}</p>
+                    <p className="font-bold text-dark text-lg">Price: 
+                    <span className="text-RED"> ${item.price} 
+                    <i className="bi bi-tags-fill ml-1"></i></span></p>
                   </div>
-                  <Product />
+                  <Product product={item}/>
                 </>
               )}
             </li>
