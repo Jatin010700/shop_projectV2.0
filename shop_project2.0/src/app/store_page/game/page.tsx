@@ -4,6 +4,8 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import SearchInputDiv from "./searchDiv";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import SearchState from "@/app/atoms/searchState";
 
 interface StoreModel {
   _id: string;
@@ -19,18 +21,23 @@ type StoreProps = {
 
 const Game: React.FC<StoreProps> = () => {
   const [products, setProducts] = useState<StoreModel[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
+  
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12; // Number of items per page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const [isLoading, setIsLoading] = useState(false);
+  const searchTerm = useRecoilValue(SearchState)
 
   const filteredItems = products.filter((item) => {
-    return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return item.name.toLowerCase().includes(searchTerm.searchString.toLowerCase());
   });
 
-  const currentProducts = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentProducts = filteredItems.slice(
+  //   indexOfFirstItem,
+  //   indexOfLastItem
+  // );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,21 +59,19 @@ const Game: React.FC<StoreProps> = () => {
   }, []);
   return (
     <>
-      <SearchInputDiv 
-      handleSearchProps={ (e:any) => setSearchTerm(e.target.value)}
-      searchTermProps={searchTerm}/>
-      <div className="h-1 bg-RED" />
+      {searchTerm.searchString === "" && <SearchInputDiv />}
+
       <section className="bg-white px-4 pb-4">
         <div className="w-full flex justify-center items-center pb-4">
           <h1 className="text-4xl text-center w-full md:w-1/2 bg-RED p-4 text-dark font-bold rounded-b-full">
-            Games
+            What&apos;s in Store
           </h1>
         </div>
         <div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
           lg:grid-cols-4 xl:grid-cols-4 gap-4 p-2"
         >
-          {currentProducts.map((item: StoreModel) => (
+          {filteredItems.map((item: StoreModel) => (
             <>
               {isLoading ? (
                 <Preloader
@@ -77,10 +82,7 @@ const Game: React.FC<StoreProps> = () => {
                 />
               ) : (
                 <>
-                  <div
-                    key={item._id}
-                    className=" rounded-3xl relative"
-                  >
+                  <div key={item._id} className=" rounded-3xl relative">
                     {/* wishlist  buttom */}
                     <button>
                       <i className="bi bi-suit-heart-fill text-2xl ml-2 bg-dark text-white px-[9px] py-1 rounded-tr-3xl rounded-bl-3xl absolute right-0 top-0 shadow-xl"></i>

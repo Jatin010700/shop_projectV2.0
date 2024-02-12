@@ -55,7 +55,7 @@ export default function Navbar() {
         <nav className="hidden gap-4 md:flex md:items-center 
         md:justify-center w-full md:w-auto md:mb-0 rounded-b-full bg-RED py-4 px-10 ml-14">
           <CustomLink to="" title="What's New" className="font-bold" />
-          <CustomLink to="/store_page" title="Store" className="font-bold" />
+          <CustomLink to="/store_page" title="Store" className="font-bold hover:text-dark" />
           <CustomLink to="" title="About" className="font-bold" />
           <CustomLink to="" title="Contact Us" className="font-bold" />
         </nav>
