@@ -17,3 +17,4 @@ export default function StoreMain() {
   );
 }
 
+//Some Issues with searchInput need to be Fix
