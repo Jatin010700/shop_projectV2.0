@@ -59,7 +59,7 @@ const Game: React.FC<StoreProps> = () => {
   }, []);
   return (
     <>
-      {searchTerm.searchString === "" && <SearchInputDiv />}
+      <SearchInputDiv/>
 
       <section className="bg-white px-4 pb-4">
         <div className="w-full flex justify-center items-center pb-4">

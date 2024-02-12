@@ -1,17 +1,14 @@
 import SearchState from "@/app/atoms/searchState";
 import { useRecoilState } from "recoil";
 
-type SearchDivProps = {
-  handleSearchProps: any;
-  searchTermProps: any;
-};
-
 export default function SearchInputDiv() {
   const [searchTerm, setSearchTerm] = useRecoilState(SearchState);
 
-  const handleSearch = (e:any) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm({ searchString: e.target.value });
+    // console.log("Updating search term:", e.target.value);
   };
+
   return (
     <>
       <div className="bg-dark w-full p-2 flex justify-center items-center">
