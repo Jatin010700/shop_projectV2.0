@@ -131,6 +131,12 @@ const Game: React.FC<StoreProps> = () => {
           lg:grid-cols-4 xl:grid-cols-4 gap-4 p-2"
           >
             {currentItems.map((item: StoreModel) => (
+              <>
+              {isLoading ? ( <Preloader 
+              preloaderSize="30"
+              preloaderColor="#ff3333" 
+              className="flex justify-center items-center"/>) : (
+              <>
               <div key={item._id} className=" rounded-3xl relative">
                 {/* wishlist  buttom */}
                 <button>
@@ -168,6 +174,10 @@ const Game: React.FC<StoreProps> = () => {
                   </button>
                 </div>
               </div>
+              </>
+              )}
+              </>
+
             ))}
           </div>
         ) : (
