@@ -5,6 +5,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Product from "./productContent";
 import Preloader from "../extra/preloader";
+import { useRecoilState, useRecoilValue } from "recoil";
+import wishListState from "@/app/atoms/wishListState";
+import toast from "react-hot-toast";
+import UserState from "@/app/atoms/userState";
 
 interface MongooseModel {
   _id: string;
@@ -21,7 +25,9 @@ type CardProps = {
 const Card: React.FC<CardProps> = () => {
   const [products, setProducts] = useState<MongooseModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  console.log("isLoading:", isLoading);
+  const [wishCart, setWishCart] = useRecoilState<MongooseModel[]>(wishListState);
+  const { isLoggedIn } = useRecoilValue(UserState);
+  const [iconClicks, setIconClicks] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,10 +44,56 @@ const Card: React.FC<CardProps> = () => {
         }, 2000);
       }
     };
-  
     fetchData();
   }, []);
-  
+
+  const addItemsToWishCart = (product: MongooseModel) => {
+    if (!isLoggedIn) {
+      toast.error(`Please Log In!`, {
+        style: {
+          borderRadius: "100px",
+          fontWeight: "bold",
+          color: "#ff3333",
+        },
+      });
+      return;
+    }
+
+    const isItemInWishList =
+      wishCart.findIndex((pro) => pro._id === product._id) !== -1;
+
+    if (!isItemInWishList) {
+      setWishCart((prevState: MongooseModel[]) => [...prevState, product]);
+    } else {
+      setWishCart((prevState: MongooseModel[]) => {
+        const updatedWishCart = prevState.filter(
+          (item) => item._id !== product._id
+        );
+        setIconClicks((prevClicks) => ({
+          ...prevClicks,
+          [product._id]: false,
+        }));
+        return updatedWishCart;
+      });
+    }
+
+    setIconClicks((prevClicks) => ({
+      ...prevClicks,
+      [product._id]: !isItemInWishList,
+    }));
+
+    const message = isItemInWishList
+      ? `${product.name} removed from Wishlist`
+      : `${product.name} added to Wishlist`;
+
+    toast.success(message, {
+      style: {
+        fontWeight: "bold",
+        borderRadius: "100px",
+      },
+    });
+  };
+
   return (
     <>
       <section className="bg-white px-4 pb-8">
@@ -58,36 +110,43 @@ const Card: React.FC<CardProps> = () => {
           {products.slice(0, 8).map((item: MongooseModel) => (
             <li key={item._id} className="flex flex-col">
               {isLoading ? (
-                <Preloader key={`preloader-${item._id}`} 
-                className="flex justify-center"
-                preloaderSize="30" 
-                preloaderColor="#ff3333"/>
+                <Preloader
+                  key={`preloader-${item._id}`}
+                  className="flex justify-center"
+                  preloaderSize="30"
+                  preloaderColor="#ff3333"
+                />
               ) : (
                 <>
-                <div className="relative">
-                  <Image
-                    src={item.image}
-                    alt=""
-                    width={100}
-                    height={100}
-                    className="w-full rounded-3xl"
-                  />
-                  {/* Wishlist Section */}
-                  {/* <button> */}
-                    <i className="bi bi-suit-heart-fill text-2xl absolute top-5 right-5"></i>
-                  {/* </button> */}
-                    
-                </div>
-                  
+                  <div className="relative">
+                    <Image
+                      src={item.image}
+                      alt=""
+                      width={100}
+                      height={100}
+                      className="w-full rounded-3xl"
+                    />
+                    {/* Wishlist Section */}
+                    <i
+                      className={`bi bi-suit-heart-fill text-2xl absolute top-5 right-5 cursor-pointer 
+                      ${iconClicks[item._id] ? "text-RED" : "text-white"}`}
+                      onClick={() => addItemsToWishCart(item)}></i>
+                  </div>
+
                   <div className="flex flex-col items-center gap-1 py-1">
                     <h2 className="text-dark text-xl font-bold uppercase">
                       {item.name}
                     </h2>
-                    <p className="font-bold text-dark text-lg">Price: 
-                    <span className="text-RED"> ${item.price} 
-                    <i className="bi bi-tags-fill ml-1"></i></span></p>
+                    <p className="font-bold text-dark text-lg">
+                      Price:
+                      <span className="text-RED">
+                        {" "}
+                        ${item.price}
+                        <i className="bi bi-tags-fill ml-1"></i>
+                      </span>
+                    </p>
                   </div>
-                  <Product product={item}/>
+                  <Product product={item} />
                 </>
               )}
             </li>

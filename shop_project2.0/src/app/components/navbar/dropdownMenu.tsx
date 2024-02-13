@@ -2,13 +2,16 @@
 import UserState from "@/app/atoms/userState";
 import { Dropdown } from "flowbite-react";
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import wishListState from "@/app/atoms/wishListState";
 
 export default function ProfileMenu() {
   const [iconClick, setIconClick] = useState(false);
   const { isLoggedIn } = useRecoilValue(UserState);
   const logOutState = useSetRecoilState(UserState);
+  const [wishCart] = useRecoilState(wishListState);
   const router = useRouter()
   
   const handleLogout = () => {
@@ -36,8 +39,12 @@ export default function ProfileMenu() {
       <div className="w-full flex flex-col items-center rounded-3xl">
         {isLoggedIn === true ? (
           <>
-            <Dropdown.Item className="rounded-3xl w-[340px] md:w-52 flex justify-center text-dark font-bold">
-              Wishlist
+            <Dropdown.Item className="rounded-3xl w-[340px] relative md:w-52 flex justify-center text-dark font-bold">
+              <Link href="/wishlist">
+              Wishlist<span className="absolute  bg-RED px-1.5 rounded-full ml-2 text-white">
+              {wishCart.length}
+            </span>
+              </Link>
             </Dropdown.Item>
             <Dropdown.Item className=" rounded-3xl w-[340px] md:w-52 flex justify-center text-dark font-bold">
               Settings

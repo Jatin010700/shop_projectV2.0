@@ -37,7 +37,6 @@ const CustomLink = ({ to, title, className }: navbarProps) => {
 export default function Navbar() {
   const { isLoggedIn, userName } = useRecoilValue(UserState);
   //   const [cartItem] = useRecoilState(cartState);
-  //   const [wishCart] = useRecoilState(wishListState);
 
   //   const totalQuantity = cartItem.reduce(
   //     (total, item) => total + item.quantity,
@@ -70,10 +69,6 @@ export default function Navbar() {
                 {totalQuantity}
               </span> */}
             </Link>
-            
-            {/* <span className="absolute right-24 top-5 bg-RED px-2 rounded-full">
-              {wishCart.length}
-            </span> */}
           </div>) : (<LoginModal/>)}
 
           <ProfileMenu />
