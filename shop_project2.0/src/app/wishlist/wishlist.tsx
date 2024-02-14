@@ -9,7 +9,7 @@ export default function WishlistComponent({ data }: wishListProps) {
   const { image, name } = data;
 
   return (
-    <div className=" text-dark w-72 ">
+    <div className=" shadow-xl rounded-3xl text-dark w-72 ">
       
     <div className="relative">
         <Image
@@ -19,7 +19,7 @@ export default function WishlistComponent({ data }: wishListProps) {
         height={100}
         className="w-full rounded-3xl mb-2"
       />
-      <i className="bi bi-x-circle-fill absolute top-5 right-5 text-2xl text-RED"></i>
+      <i className="bi bi-x-circle-fill absolute top-5 right-4 text-2xl text-RED"></i>
     </div>
         
 

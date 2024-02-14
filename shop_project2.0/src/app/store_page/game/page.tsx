@@ -10,6 +10,7 @@ import { NumberPages } from "./numberOfPages";
 import wishListState from "@/app/atoms/wishListState";
 import UserState from "@/app/atoms/userState";
 import toast from "react-hot-toast";
+import { cartState } from "@/app/atoms/cartState";
 
 interface StoreModel {
   _id: string;
@@ -30,6 +31,7 @@ const Game: React.FC<StoreProps> = () => {
   const [iconClicks, setIconClicks] = useState<{ [key: string]: boolean }>({});
   const searchTerm = useRecoilValue(SearchState);
   const [wishCart, setWishCart] = useRecoilState<StoreModel[]>(wishListState);
+  const [cartItem, setCartItem] = useRecoilState<StoreModel[]>(cartState);
   const { isLoggedIn } = useRecoilValue(UserState);
 
   const filteredItems = products.filter((item) => {
@@ -68,6 +70,7 @@ const Game: React.FC<StoreProps> = () => {
     setCurrentPage(pageNumber);
   };
 
+//add to wish cart
   const addItemsToWishCart = (product: StoreModel) => {
     if (!isLoggedIn) {
       toast.error(`Please Log In!`, {
@@ -79,7 +82,7 @@ const Game: React.FC<StoreProps> = () => {
       });
       return;
     }
-
+    
     const isItemInWishList =
       wishCart.findIndex((pro) => pro._id === product._id) !== -1;
 
@@ -114,7 +117,41 @@ const Game: React.FC<StoreProps> = () => {
       },
     });
   };
+//-------------------------//
 
+//add to shop cart
+
+const addItemsToCart = (product: StoreModel) => {
+  if (!isLoggedIn) {
+    toast.error(`Please Log In!`, {
+      style: {
+        borderRadius: "100px",
+        fontWeight: "bold",
+        color: "#ff3333",
+      },
+    });
+    return;
+  }
+
+  if (cartItem.findIndex((pro) => pro._id === product._id) === -1) {
+    setCartItem((prevState) => [...prevState, product]);
+  } else {
+    setCartItem((prevState) => {
+      return prevState.map((item) => {
+        return item._id === product._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item;
+      });
+    });
+  }
+  toast.success(`${product.name} added to Cart`, {
+    style: {
+      fontWeight: "bold",
+      borderRadius: "100px",
+    },
+  });
+};
+//-------------------------//
   return (
     <>
       <SearchInputDiv />
@@ -137,15 +174,14 @@ const Game: React.FC<StoreProps> = () => {
               preloaderColor="#ff3333" 
               className="flex justify-center items-center"/>) : (
               <>
-              <div key={item._id} className=" rounded-3xl relative">
+              <div key={item._id} className="shadow-xl rounded-3xl relative">
                 {/* wishlist  buttom */}
-                <button>
                   <i
                     className={`bi bi-suit-heart-fill text-2xl ml-2 bg-dark  px-[9px] py-1
-                         rounded-tr-3xl rounded-bl-3xl absolute right-0 top-0 shadow-xl 
+                         rounded-tr-3xl rounded-bl-3xl absolute right-0 top-0 shadow-xl cursor-pointer 
                          ${iconClicks[item._id] ? "text-RED" : "text-white"}`}
                     onClick={() => addItemsToWishCart(item)}></i>
-                </button>
+
                 <div className="flex flex-col items-center gap-1 py-1">
                   <Image
                     src={item.image}
@@ -168,7 +204,9 @@ const Game: React.FC<StoreProps> = () => {
                   </p>
 
                   <div></div>
-                  <button className="bg-dark rounded-full font-bold !border-none focus:ring-0  hover:scale-105 duration-150 w-3/4 p-2">
+                  <button className="bg-dark rounded-full font-bold 
+                  !border-none focus:ring-0  hover:scale-105 duration-150 w-3/4 p-2"
+                  onClick={() =>addItemsToCart(item)}>
                     Add to Cart
                     <i className="bi bi-bag-plus-fill ml-1"></i>
                   </button>

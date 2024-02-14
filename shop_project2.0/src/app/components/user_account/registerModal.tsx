@@ -30,7 +30,7 @@ export default function RegisterModal() {
         <Modal.Body>
           <div className="space-y-6">
             <h3 className="text-xl text-RED font-bold">
-              Sign in to our platform
+              Register to our platform
             </h3>
             <div>
               <div className="mb-2 block">
@@ -65,8 +65,11 @@ export default function RegisterModal() {
               </a>
             </div>
             <div className="w-full flex justify-center">
-              <Button className="text-dark rounded-full w-full bg-RED font-bold hover:scale-110 duration-150">Log in to your account</Button>
+              <Button className="text-dark rounded-full w-full bg-RED font-bold hover:scale-110 duration-150">
+                Register your account</Button>
             </div>
+            <p className="font-bold text-dark">Note: This project does not have registering feature
+            <span className="text-RED ml-1">Please use account detail in login page?</span></p>
             <div className="flex justify-between text-sm font-medium text-RED ">
               Not registered?&nbsp;
               <a

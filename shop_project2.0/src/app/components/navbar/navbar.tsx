@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import  ProfileMenu  from "./dropdownMenu";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import UserState from "@/app/atoms/userState";
 import LoginModal from "../user_account/loginModal";
+import { cartState } from "@/app/atoms/cartState";
 
 
 type navbarProps = {
@@ -36,12 +37,12 @@ const CustomLink = ({ to, title, className }: navbarProps) => {
 
 export default function Navbar() {
   const { isLoggedIn, userName } = useRecoilValue(UserState);
-  //   const [cartItem] = useRecoilState(cartState);
+    const [cartItem] = useRecoilState(cartState);
 
-  //   const totalQuantity = cartItem.reduce(
-  //     (total, item) => total + item.quantity,
-  //     0
-  //   );
+    const totalQuantity = cartItem.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
 
   return (
     <>
@@ -63,11 +64,13 @@ export default function Navbar() {
           {isLoggedIn === true ? (
           <div className="flex justify-center items-center gap-3 text-xl">
             <h2>Hello, <span className="font-bold uppercase text-RED">{userName}</span></h2>
-            <Link href="/Cart">
-              <i className="bi bi-bag-plus-fill cursor-pointer text-3xl hover:text-RED rounded-full scale-105 duration-150 transition ease-in-out hover:-translate-z-1 hover:scale-125"></i>
-              {/* <span className="absolute right-14 top-5 bg-RED px-2 rounded-full">
+            <Link href="/checkoutPage">
+              <i className="bi bi-bag-plus-fill cursor-pointer text-3xl 
+              hover:text-RED rounded-full scale-105 duration-150 hover:scale-125
+              relative"></i>
+              <span className="absolute right-14 top-3 bg-RED px-2 text-base rounded-full">
                 {totalQuantity}
-              </span> */}
+              </span>
             </Link>
           </div>) : (<LoginModal/>)}
 

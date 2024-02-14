@@ -1,8 +1,12 @@
 "use client";
+import { cartState } from "@/app/atoms/cartState";
+import UserState from "@/app/atoms/userState";
 // Product.tsx
 import { Button, CustomFlowbiteTheme, Flowbite, Modal } from "flowbite-react";
 import Image from "next/image";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 interface MongooseModel {
   _id: string;
@@ -18,7 +22,39 @@ type ProductProps = {
 
 const Product: React.FC<ProductProps> = ({ product }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [cartItem, setCartItem] = useRecoilState<MongooseModel[]>(cartState);
+  const { isLoggedIn } = useRecoilValue(UserState);
 
+  const addItemsToCart = () => {
+    if (!isLoggedIn) {
+      toast.error(`Please Log In!`, {
+        style: {
+          borderRadius: "100px",
+          fontWeight: "bold",
+          color: "#ff3333",
+        },
+      });
+      return;
+    }
+
+    if (cartItem.findIndex((pro) => pro._id === product._id) === -1) {
+      setCartItem((prevState) => [...prevState, product]);
+    } else {
+      setCartItem((prevState) => {
+        return prevState.map((item) => {
+          return item._id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item;
+        });
+      });
+    }
+    toast.success(`${product.name} added to Cart`, {
+      style: {
+        fontWeight: "bold",
+        borderRadius: "100px",
+      },
+    });
+  };
   return (
     <>
       <Button
@@ -57,7 +93,9 @@ const Product: React.FC<ProductProps> = ({ product }) => {
                 esse id accusamus dignissimos neque ..
               </p>
               <p>Price: ${product.price}</p>
-              <button className="bg-dark text-white rounded-full font-bold border-2 border-RED py-2">
+              <button className="bg-dark text-white rounded-full 
+              font-bold border-2 border-RED py-2 focus:ring-0  hover:scale-105 duration-150"
+              onClick={addItemsToCart}>
                 Add to Cart <i className="bi bi-bag-plus-fill"></i>
               </button>
             </div>

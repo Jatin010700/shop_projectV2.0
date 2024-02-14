@@ -60,7 +60,7 @@ export default function LoginModal() {
           fontWeight: "bold",
           borderRadius: "100px",
         },
-      })
+      });
       console.error("Error during login:", error);
       setIsLoading(false);
     }
@@ -81,8 +81,7 @@ export default function LoginModal() {
         popup
       >
         <div className="text-dark flex justify-end px-6 pt-6">
-          <button 
-          onClick={onCloseModal}>
+          <button onClick={onCloseModal}>
             <i className="bi bi-x-circle-fill text-2xl hover:text-RED scale-105 duration-150"></i>
           </button>
         </div>
@@ -170,6 +169,7 @@ export default function LoginModal() {
                 )}
               </Button>
             </div>
+            <p className="font-bold text-RED"><span className="text-dark">Account detail:</span>Test, 123</p>
             <div className="flex justify-between items-center text-sm text-dark font-bold">
               Not registered?&nbsp;
               {/* register modal button */}

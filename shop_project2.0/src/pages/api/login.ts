@@ -19,8 +19,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       const { username, password }: LoginRequest = req.body;
-      console.log('Request Body:', req.body);
-      console.log(username, password)
+      // console.log('Request Body:', req.body);
+      // console.log(username, password)
       // Check if the user exists in MongoDB
       const user = await MongooseLoginModel.findOne({ username });
 
