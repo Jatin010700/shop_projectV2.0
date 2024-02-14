@@ -24,7 +24,7 @@ const CartList = ({
           alt={name}
           width={100}
           height={100}
-          className="w-full md:w-1/4 h-auto rounded-lg"
+          className="w-full md:w-1/4 h-auto rounded-3xl"
         />
 
         <div

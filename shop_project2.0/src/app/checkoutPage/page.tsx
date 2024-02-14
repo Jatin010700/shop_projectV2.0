@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import { cartState } from "../atoms/cartState";
 import CartList from "./cartList";
 import { Bar } from "../components/extra/bar";
+import CheckoutModal from "./checkoutModal";
 
 const CheckoutPage = () => {
   const [cartItem, setCartItem] = useRecoilState(cartState);
@@ -32,17 +33,6 @@ const CheckoutPage = () => {
           : item
       )
     );
-  };
-
-  const createCheckoutSession = async (e:any) => {
-    e.preventDefault();
-    axios
-      .post("api/checkout_sessions", { cartItem })
-      .then((res) => {
-        console.log(res);
-        window.location = res.data.sessionURL;
-      })
-      .catch((err) => console.log(err));
   };
 
   return (
@@ -102,13 +92,7 @@ const CheckoutPage = () => {
             <h2 className="text-center text-3xl font-bold">
               Total: ${totalPrice()}
             </h2>
-            <button
-              className="shadow-xl text-white border-2 border-RED p-2 my-2 rounded-lg font-bold bg-RED
-              scale-105 duration-100"
-              onClick={createCheckoutSession}
-            >
-              Checkout
-            </button>
+            <CheckoutModal/>
           </div>
         )}
       </div>

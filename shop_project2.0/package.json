@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^3.0.2",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
@@ -18,11 +19,12 @@
     "ldrs": "^1.0.1",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
-    "next": "14.1.0",
+    "next": "^14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "stripe": "^14.16.0"
   },
   "devDependencies": {
     "@types/node": "^20",
